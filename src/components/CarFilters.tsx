@@ -60,11 +60,11 @@ const CarFilters = ({ initialFilters, onFilterChange, isLoading }: CarFiltersPro
   };
 
   const handleBrandChange = (brand: string) => {
-    setFilters({ ...filters, brand: brand || undefined });
+    setFilters({ ...filters, brand: brand === "all" ? undefined : brand });
   };
 
   const handleFuelTypeChange = (fuelType: string) => {
-    setFilters({ ...filters, fuelType: fuelType || undefined });
+    setFilters({ ...filters, fuelType: fuelType === "all" ? undefined : fuelType });
   };
 
   const handleClearFilters = () => {
@@ -96,18 +96,18 @@ const CarFilters = ({ initialFilters, onFilterChange, isLoading }: CarFiltersPro
               variant="ghost" 
               size="sm" 
               className="h-7 text-xs px-2" 
-              onClick={() => handleBrandChange('')}
+              onClick={() => handleBrandChange('all')}
             >
               Clear <X className="ml-1 h-3 w-3" />
             </Button>
           )}
         </div>
-        <Select value={filters.brand || ''} onValueChange={handleBrandChange}>
+        <Select value={filters.brand || 'all'} onValueChange={handleBrandChange}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="All Brands" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Brands</SelectItem>
+            <SelectItem value="all">All Brands</SelectItem>
             {AVAILABLE_BRANDS.map((brand) => (
               <SelectItem key={brand} value={brand}>
                 {brand}
@@ -125,18 +125,18 @@ const CarFilters = ({ initialFilters, onFilterChange, isLoading }: CarFiltersPro
               variant="ghost" 
               size="sm" 
               className="h-7 text-xs px-2" 
-              onClick={() => handleFuelTypeChange('')}
+              onClick={() => handleFuelTypeChange('all')}
             >
               Clear <X className="ml-1 h-3 w-3" />
             </Button>
           )}
         </div>
-        <Select value={filters.fuelType || ''} onValueChange={handleFuelTypeChange}>
+        <Select value={filters.fuelType || 'all'} onValueChange={handleFuelTypeChange}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="All Fuel Types" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Fuel Types</SelectItem>
+            <SelectItem value="all">All Fuel Types</SelectItem>
             {AVAILABLE_FUEL_TYPES.map((fuelType) => (
               <SelectItem key={fuelType} value={fuelType}>
                 {fuelType}
@@ -268,7 +268,7 @@ const CarFilters = ({ initialFilters, onFilterChange, isLoading }: CarFiltersPro
                   variant="ghost" 
                   size="icon" 
                   className="h-5 w-5 ml-1 hover:bg-transparent" 
-                  onClick={() => handleBrandChange('')}
+                  onClick={() => handleBrandChange('all')}
                 >
                   <X className="h-3 w-3" />
                 </Button>
@@ -281,7 +281,7 @@ const CarFilters = ({ initialFilters, onFilterChange, isLoading }: CarFiltersPro
                   variant="ghost" 
                   size="icon" 
                   className="h-5 w-5 ml-1 hover:bg-transparent" 
-                  onClick={() => handleFuelTypeChange('')}
+                  onClick={() => handleFuelTypeChange('all')}
                 >
                   <X className="h-3 w-3" />
                 </Button>
