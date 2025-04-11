@@ -11,7 +11,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Heart, X } from 'lucide-react';
+import { Heart, X, Car as CarIcon } from 'lucide-react';
 import { useState } from 'react';
 
 interface CarDetailsDialogProps {
@@ -23,6 +23,7 @@ interface CarDetailsDialogProps {
 const CarDetailsDialog = ({ car, isOpen, onClose }: CarDetailsDialogProps) => {
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
 
   if (!car) return null;
 
@@ -32,6 +33,12 @@ const CarDetailsDialog = ({ car, isOpen, onClose }: CarDetailsDialogProps) => {
     } else {
       addToWishlist(car);
     }
+  };
+
+  const handleImageError = () => {
+    console.log(`Failed to load detail image for ${car.brand} ${car.model}`);
+    setImageError(true);
+    setIsImageLoading(false);
   };
 
   return (
@@ -48,18 +55,25 @@ const CarDetailsDialog = ({ car, isOpen, onClose }: CarDetailsDialogProps) => {
           </div>
         </DialogHeader>
         <div className="relative overflow-hidden bg-gray-200 rounded-lg aspect-[16/9]">
-          {isImageLoading && (
+          {isImageLoading && !imageError && (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-10 h-10 border-4 border-gray-300 border-t-car-blue rounded-full animate-spin"></div>
             </div>
           )}
-          <img
-            src={car.imageUrl}
-            alt={`${car.brand} ${car.model}`}
-            className={`w-full h-full object-cover transition-opacity duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
-            onLoad={() => setIsImageLoading(false)}
-            onError={() => setIsImageLoading(false)}
-          />
+          {imageError ? (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100">
+              <CarIcon className="h-24 w-24 text-gray-400" />
+              <p className="text-lg text-gray-500 mt-2">{car.brand} {car.model}</p>
+            </div>
+          ) : (
+            <img
+              src={car.imageUrl}
+              alt={`${car.brand} ${car.model}`}
+              className={`w-full h-full object-cover transition-opacity duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
+              onLoad={() => setIsImageLoading(false)}
+              onError={handleImageError}
+            />
+          )}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

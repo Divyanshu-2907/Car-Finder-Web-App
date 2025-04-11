@@ -4,7 +4,7 @@ import { useWishlist } from '@/contexts/WishlistContext';
 import { formatCurrency } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Heart, Info } from 'lucide-react';
+import { Heart, Info, Car as CarIcon } from 'lucide-react';
 import { useState } from 'react';
 
 interface CarCardProps {
@@ -15,6 +15,7 @@ interface CarCardProps {
 const CarCard = ({ car, onViewDetails }: CarCardProps) => {
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -29,21 +30,34 @@ const CarCard = ({ car, onViewDetails }: CarCardProps) => {
     onViewDetails(car);
   };
 
+  const handleImageError = () => {
+    console.log(`Failed to load image for ${car.brand} ${car.model}`);
+    setImageError(true);
+    setIsImageLoading(false);
+  };
+
   return (
     <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg">
       <div className="relative overflow-hidden bg-gray-200 aspect-[16/10]">
-        {isImageLoading && (
+        {isImageLoading && !imageError && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-10 h-10 border-4 border-gray-300 border-t-car-blue rounded-full animate-spin"></div>
           </div>
         )}
-        <img
-          src={car.imageUrl}
-          alt={`${car.brand} ${car.model}`}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
-          onLoad={() => setIsImageLoading(false)}
-          onError={() => setIsImageLoading(false)}
-        />
+        {imageError ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100">
+            <CarIcon className="h-16 w-16 text-gray-400" />
+            <p className="text-sm text-gray-500 mt-2">{car.brand} {car.model}</p>
+          </div>
+        ) : (
+          <img
+            src={car.imageUrl}
+            alt={`${car.brand} ${car.model}`}
+            className={`w-full h-full object-cover transition-opacity duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
+            onLoad={() => setIsImageLoading(false)}
+            onError={handleImageError}
+          />
+        )}
         <Button
           variant="outline"
           size="icon"
