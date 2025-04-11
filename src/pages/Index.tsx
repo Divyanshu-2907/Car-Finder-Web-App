@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Car, CarFilterParams } from "@/types/car";
 import { fetchCars, PRICE_RANGE, SEATING_CAPACITY_RANGE } from "@/services/carService";
 import { useWishlist } from "@/contexts/WishlistContext";
@@ -36,47 +36,58 @@ const Index = () => {
   
   const { wishlist } = useWishlist();
 
-  // Fetch cars whenever filters change
+  // Fetch cars whenever filters change - optimize with useCallback
   useEffect(() => {
+    const controller = new AbortController();
+    
     const loadCars = async () => {
       setIsLoading(true);
       setError(null);
       try {
         const result = await fetchCars(filters);
+        // Only update state if the component is still mounted
         setCars(result.cars);
         setTotalCars(result.total);
       } catch (err) {
-        setError("Failed to load cars. Please try again.");
-        console.error(err);
+        // Ignore aborted requests
+        if (err.name !== 'AbortError') {
+          setError("Failed to load cars. Please try again.");
+          console.error(err);
+        }
       } finally {
         setIsLoading(false);
       }
     };
 
     loadCars();
+    
+    // Clean up function to cancel fetch on unmount or filter change
+    return () => {
+      controller.abort();
+    };
   }, [filters]);
 
-  // Handle filter changes
-  const handleFilterChange = (newFilters: CarFilterParams) => {
+  // Memoize handlers to prevent recreating functions on each render
+  const handleFilterChange = useCallback((newFilters: CarFilterParams) => {
     // Reset to page 1 when filters change, but keep other filters
-    setFilters({ ...newFilters, page: 1 });
-  };
+    setFilters(prev => ({ ...newFilters, page: 1 }));
+  }, []);
 
-  // Handle page change
-  const handlePageChange = (page: number) => {
-    setFilters({ ...filters, page });
+  // Handle page change with useCallback
+  const handlePageChange = useCallback((page: number) => {
+    setFilters(prev => ({ ...prev, page }));
     // Scroll to top when changing pages
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, []);
 
   // Handle car selection for details view
-  const handleViewDetails = (car: Car) => {
+  const handleViewDetails = useCallback((car: Car) => {
     setSelectedCar(car);
     setIsDetailsOpen(true);
-  };
+  }, []);
 
-  // Calculate total pages for pagination
-  const totalPages = Math.ceil(totalCars / (filters.limit || 10));
+  // Calculate total pages for pagination - memoize to avoid recalculation
+  const totalPages = useMemo(() => Math.ceil(totalCars / (filters.limit || 10)), [totalCars, filters.limit]);
 
   return (
     <div className="min-h-screen bg-background pb-12">

@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { CarFilterParams } from '@/types/car';
 import { AVAILABLE_BRANDS, AVAILABLE_FUEL_TYPES, PRICE_RANGE, SEATING_CAPACITY_RANGE } from '@/services/carService';
 import { Button } from '@/components/ui/button';
@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency, useSkipFirstRender } from '@/lib/utils';
 import { 
   Filter, 
   SortDesc, 
@@ -35,8 +35,8 @@ const CarFilters = ({ initialFilters, onFilterChange, isLoading }: CarFiltersPro
     filters.maxSeats || SEATING_CAPACITY_RANGE.max
   ]);
   
-  // Apply filters with debounce
-  useEffect(() => {
+  // Optimize filter application with useSkipFirstRender to avoid initial trigger
+  useSkipFirstRender(() => {
     const timer = setTimeout(() => {
       onFilterChange({
         ...filters,
@@ -48,26 +48,33 @@ const CarFilters = ({ initialFilters, onFilterChange, isLoading }: CarFiltersPro
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [filters, priceRange, seatsRange, onFilterChange]);
+  }, [filters, priceRange, seatsRange]);
 
-  const handleSortChange = (sortOption: string) => {
+  // Memoize handlers to prevent unnecessary re-creations
+  const handleSortChange = useCallback((sortOption: string) => {
     const [sortBy, sortOrder] = sortOption.split('-');
-    setFilters({
-      ...filters,
+    setFilters(prev => ({
+      ...prev,
       sortBy: sortBy as 'price' | 'year',
       sortOrder: sortOrder as 'asc' | 'desc'
-    });
-  };
+    }));
+  }, []);
 
-  const handleBrandChange = (brand: string) => {
-    setFilters({ ...filters, brand: brand === "all" ? undefined : brand });
-  };
+  const handleBrandChange = useCallback((brand: string) => {
+    setFilters(prev => ({ 
+      ...prev, 
+      brand: brand === "all" ? undefined : brand 
+    }));
+  }, []);
 
-  const handleFuelTypeChange = (fuelType: string) => {
-    setFilters({ ...filters, fuelType: fuelType === "all" ? undefined : fuelType });
-  };
+  const handleFuelTypeChange = useCallback((fuelType: string) => {
+    setFilters(prev => ({ 
+      ...prev, 
+      fuelType: fuelType === "all" ? undefined : fuelType 
+    }));
+  }, []);
 
-  const handleClearFilters = () => {
+  const handleClearFilters = useCallback(() => {
     setPriceRange([PRICE_RANGE.min, PRICE_RANGE.max]);
     setSeatsRange([SEATING_CAPACITY_RANGE.min, SEATING_CAPACITY_RANGE.max]);
     setFilters({
@@ -75,15 +82,17 @@ const CarFilters = ({ initialFilters, onFilterChange, isLoading }: CarFiltersPro
       sortBy: 'price',
       sortOrder: 'asc',
     });
-  };
+  }, []);
 
-  const isFiltered = 
+  // Memoize this calculation to prevent recalculation on every render
+  const isFiltered = useMemo(() => (
     !!filters.brand || 
     !!filters.fuelType || 
     priceRange[0] > PRICE_RANGE.min || 
     priceRange[1] < PRICE_RANGE.max ||
     seatsRange[0] > SEATING_CAPACITY_RANGE.min || 
-    seatsRange[1] < SEATING_CAPACITY_RANGE.max;
+    seatsRange[1] < SEATING_CAPACITY_RANGE.max
+  ), [filters.brand, filters.fuelType, priceRange, seatsRange]);
 
   // Filter panel content (shared between desktop and mobile)
   const filterPanelContent = (
