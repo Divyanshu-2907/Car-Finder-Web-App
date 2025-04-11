@@ -7,8 +7,7 @@ import CarDetailsDialog from "@/components/CarDetailsDialog";
 import { Button } from "@/components/ui/button";
 import { Heart, ArrowLeft, Info } from "lucide-react";
 import { Link } from "react-router-dom";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Wishlist = () => {
   const { wishlist } = useWishlist();
@@ -40,19 +39,21 @@ const Wishlist = () => {
                 car={car} 
                 onViewDetails={handleViewDetails} 
               />
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="absolute top-2 left-2 bg-white/80 backdrop-blur-sm hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
-                    onClick={() => handleViewDetails(car)}
-                  >
-                    <Info className="h-4 w-4 text-car-blue" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">Quick view</TooltipContent>
-              </Tooltip>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="absolute top-2 left-2 bg-white/80 backdrop-blur-sm hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => handleViewDetails(car)}
+                    >
+                      <Info className="h-4 w-4 text-car-blue" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">Quick view</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           ))}
         </div>
