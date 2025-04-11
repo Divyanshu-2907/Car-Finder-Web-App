@@ -7,9 +7,9 @@ import { componentTagger } from "lovable-tagger";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "localhost", // Change from "::" to "localhost"
-    port: 3000, // Change from 8080 to 3000
-    strictPort: false, // Allow Vite to use an alternative port if 3000 is occupied
+    host: "localhost",
+    port: 8080, // Set back to 8080 as per requirements
+    strictPort: false,
   },
   plugins: [
     react(),
