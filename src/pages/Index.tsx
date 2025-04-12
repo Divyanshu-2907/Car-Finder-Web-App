@@ -28,6 +28,9 @@ const Index = () => {
     minSeats: SEATING_CAPACITY_RANGE.min,
     maxSeats: SEATING_CAPACITY_RANGE.max,
   });
+
+  // Cache for preloaded data
+  const [pageCache, setPageCache] = useState<Record<number, Car[]>>({});
   
   // State for car details and view mode
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
@@ -36,7 +39,31 @@ const Index = () => {
   
   const { wishlist } = useWishlist();
 
-  // Fetch cars whenever filters change - optimize with useCallback
+  // Preload next and previous page data
+  useEffect(() => {
+    const preloadPages = async () => {
+      const currentPage = filters.page;
+      const totalPages = Math.ceil(totalCars / (filters.limit || 10));
+      
+      // Preload next page
+      if (currentPage < totalPages && !pageCache[currentPage + 1]) {
+        const nextPageFilters = { ...filters, page: currentPage + 1 };
+        const result = await fetchCars(nextPageFilters);
+        setPageCache(prev => ({ ...prev, [currentPage + 1]: result.cars }));
+      }
+      
+      // Preload previous page
+      if (currentPage > 1 && !pageCache[currentPage - 1]) {
+        const prevPageFilters = { ...filters, page: currentPage - 1 };
+        const result = await fetchCars(prevPageFilters);
+        setPageCache(prev => ({ ...prev, [currentPage - 1]: result.cars }));
+      }
+    };
+
+    preloadPages();
+  }, [filters, totalCars, pageCache]);
+
+  // Fetch cars whenever filters change
   useEffect(() => {
     const controller = new AbortController();
     
@@ -44,12 +71,17 @@ const Index = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const result = await fetchCars(filters);
-        // Only update state if the component is still mounted
-        setCars(result.cars);
-        setTotalCars(result.total);
+        // Check if we have cached data for the current page
+        if (pageCache[filters.page]) {
+          setCars(pageCache[filters.page]);
+          setIsLoading(false);
+        } else {
+          const result = await fetchCars(filters);
+          setCars(result.cars);
+          setTotalCars(result.total);
+          setPageCache(prev => ({ ...prev, [filters.page]: result.cars }));
+        }
       } catch (err) {
-        // Ignore aborted requests
         if (err.name !== 'AbortError') {
           setError("Failed to load cars. Please try again.");
           console.error(err);
@@ -61,22 +93,20 @@ const Index = () => {
 
     loadCars();
     
-    // Clean up function to cancel fetch on unmount or filter change
     return () => {
       controller.abort();
     };
-  }, [filters]);
+  }, [filters, pageCache]);
 
   // Memoize handlers to prevent recreating functions on each render
   const handleFilterChange = useCallback((newFilters: CarFilterParams) => {
-    // Reset to page 1 when filters change, but keep other filters
+    setPageCache({}); // Clear cache when filters change
     setFilters(prev => ({ ...newFilters, page: 1 }));
   }, []);
 
   // Handle page change with useCallback
   const handlePageChange = useCallback((page: number) => {
     setFilters(prev => ({ ...prev, page }));
-    // Scroll to top when changing pages
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
@@ -103,12 +133,12 @@ const Index = () => {
               <p className="text-gray-300 mt-2">Find your dream car with ease</p>
             </div>
             <div className="flex gap-4">
-              <Button variant="outline" asChild className="border-white text-white hover:text-car-dark">
+              <Button variant="outline" asChild className="border-white  text-car-dark">
                 <Link to="/wishlist" className="flex items-center gap-2">
                   <Heart className="h-4 w-4" />
                   Wishlist
                   {wishlist.length > 0 && (
-                    <span className="bg-car-red text-white w-5 h-5 rounded-full text-xs flex items-center justify-center">
+                    <span className="bg-car-red text-white w-5 h-5 rounded-full text-xs flex items-center justify-center ">
                       {wishlist.length}
                     </span>
                   )}

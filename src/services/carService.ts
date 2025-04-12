@@ -1,4 +1,3 @@
-
 import { Car, CarFilterParams } from "../types/car";
 
 // Mock car data
@@ -14,7 +13,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 32,
     engineCapacity: 2.5,
-    imageUrl: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb",
     description: "The Toyota Camry is a reliable mid-size sedan known for its comfort, fuel efficiency, and longevity.",
     features: ["Bluetooth", "Backup Camera", "Cruise Control", "Lane Departure Warning"]
   },
@@ -29,7 +28,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 30,
     engineCapacity: 1.5,
-    imageUrl: "https://images.unsplash.com/photo-1630990553193-3c01bdfd56a8?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1594070319944-7c0cbebb6f58?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGhvbmRhJTIwYWNjb3JkfGVufDB8fDB8fHww",
     description: "The Honda Accord is a popular mid-size sedan offering a good balance of performance, comfort, and reliability.",
     features: ["Apple CarPlay", "Android Auto", "Adaptive Cruise Control", "Heated Seats"]
   },
@@ -44,7 +43,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 6,
     mileage: 20,
     engineCapacity: 3.5,
-    imageUrl: "https://images.unsplash.com/photo-1605893477799-b99e3b8b93fe?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1583121274602-3e2820c69888",
     description: "The Ford F-150 is America's best-selling pickup truck, known for its capability, durability, and versatility.",
     features: ["4WD", "Towing Package", "Touchscreen Infotainment", "Power Tailgate"]
   },
@@ -59,7 +58,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 26,
     engineCapacity: 1.5,
-    imageUrl: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5",
     description: "The Chevrolet Equinox is a compact SUV offering good fuel economy, comfortable seating, and modern technology.",
     features: ["Wi-Fi Hotspot", "Teen Driver Technology", "Blind Spot Monitoring", "Rear Cross Traffic Alert"]
   },
@@ -72,9 +71,9 @@ const CARS_DATA: Car[] = [
     fuelType: "Electric",
     transmission: "Automatic",
     seatingCapacity: 5,
-    mileage: 120, // MPGe
-    engineCapacity: 0, // Electric
-    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=1000&auto=format&fit=crop",
+    mileage: 120,
+    engineCapacity: 0,
+    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89",
     description: "The Tesla Model 3 is a popular electric car known for its long range, cutting-edge technology, and impressive performance.",
     features: ["Autopilot", "Full Self-Driving Capability", "Glass Roof", "Minimalist Interior"]
   },
@@ -89,7 +88,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 26,
     engineCapacity: 2.0,
-    imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e",
     description: "The BMW 3 Series is a luxury compact sedan known for its sporty handling, upscale interior, and advanced technology.",
     features: ["iDrive Infotainment", "Leather Seats", "Harman Kardon Audio", "Dynamic Driving Modes"]
   },
@@ -104,7 +103,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 24,
     engineCapacity: 2.0,
-    imageUrl: "https://images.unsplash.com/photo-161405581413-2a89d8fa9908?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6",
     description: "The Audi Q5 is a luxury compact SUV offering a refined interior, smooth ride quality, and Quattro all-wheel drive.",
     features: ["Virtual Cockpit", "Quattro AWD", "Panoramic Sunroof", "Bang & Olufsen Sound"]
   },
@@ -119,7 +118,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 25,
     engineCapacity: 2.5,
-    imageUrl: "https://images.unsplash.com/photo-1597007030739-6d2e8c690562?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571037697753-e796f324bbd6?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aHl1bmRhaXxlbnwwfHwwfHx8MA%3D%3D",
     description: "The Hyundai Santa Fe is a mid-size SUV offering great value, a comfortable interior, and plenty of standard features.",
     features: ["BlueLink Connected Car System", "Safe Exit Assist", "Smart Cruise Control", "Remote Start"]
   },
@@ -134,7 +133,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 8,
     mileage: 23,
     engineCapacity: 3.8,
-    imageUrl: "https://images.unsplash.com/photo-1601271688427-90324b0296d1?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1693456356273-b0bfab25c4bf?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGtpYXxlbnwwfHwwfHx8MA%3D%3D",
     description: "The Kia Telluride is a mid-size SUV with three rows of seating, upscale features, and a spacious interior.",
     features: ["Driver Talk", "Quiet Mode", "Heads-Up Display", "10.25-inch Touchscreen"]
   },
@@ -149,7 +148,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 28,
     engineCapacity: 2.5,
-    imageUrl: "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a",
     description: "The Mazda CX-5 is a compact crossover SUV known for its upscale interior, engaging driving dynamics, and sleek styling.",
     features: ["Mazda Connect Infotainment", "G-Vectoring Control Plus", "Bose Premium Audio", "Active Driving Display"]
   },
@@ -164,7 +163,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 26,
     engineCapacity: 2.5,
-    imageUrl: "https://images.unsplash.com/photo-1604341301577-05fd4477dcd5?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1591827285933-08285e588df0?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3ViYXJ1fGVufDB8fDB8fHww",
     description: "The Subaru Outback is a versatile wagon-like SUV with standard all-wheel drive and excellent off-road capability.",
     features: ["Symmetrical All-Wheel Drive", "EyeSight Driver Assist", "X-MODE", "StarLink Safety and Security"]
   },
@@ -179,7 +178,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 7,
     mileage: 23,
     engineCapacity: 2.0,
-    imageUrl: "https://images.unsplash.com/photo-1632858832074-067d9d11693d?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1609521263047-f8f205293f24",
     description: "The Volkswagen Tiguan is a compact SUV with optional third-row seating, refined handling, and European styling.",
     features: ["Digital Cockpit", "4Motion All-Wheel Drive", "App-Connect", "Panoramic Sunroof"]
   },
@@ -194,7 +193,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 30,
     engineCapacity: 3.5,
-    imageUrl: "https://images.unsplash.com/photo-1625231334168-35067f8853ed?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1601752874509-0e350467dc7b",
     description: "The Lexus RX is a luxury mid-size SUV offering exceptional comfort, reliability, and available hybrid powertrain.",
     features: ["Mark Levinson Audio", "Power Folding Rear Seats", "Color Head-Up Display", "Lexus Safety System+"]
   },
@@ -209,7 +208,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 22,
     engineCapacity: 3.6,
-    imageUrl: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1511527844068-006b95d162c2?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8amVlcCUyMGdyYW5kJTIwY2hlcm9rZWV8ZW58MHx8MHx8fDA%3D",
     description: "The Jeep Grand Cherokee is a mid-size SUV known for its off-road capability, luxurious interior, and powerful engines.",
     features: ["Quadra-Drive II 4x4", "Quadra-Lift Air Suspension", "Selec-Terrain Traction Management", "McIntosh Audio System"]
   },
@@ -224,7 +223,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 30,
     engineCapacity: 2.5,
-    imageUrl: "https://images.unsplash.com/photo-1609850222830-3ad7db4f4864?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1551817280-6d59c77ce1b8?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bmlzc2FufGVufDB8fDB8fHww",
     description: "The Nissan Rogue is a compact SUV with a spacious interior, good fuel economy, and advanced safety features.",
     features: ["ProPILOT Assist", "Divide-N-Hide Cargo System", "Intelligent Around View Monitor", "Motion Activated Liftgate"]
   },
@@ -239,7 +238,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 40,
     engineCapacity: 2.5,
-    imageUrl: "https://images.unsplash.com/photo-1581540222194-0def2dda95b8?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb",
     description: "The Toyota RAV4 Hybrid is a compact SUV offering excellent fuel economy, standard all-wheel drive, and Toyota Safety Sense.",
     features: ["Toyota Safety Sense 2.0", "All-Wheel Drive with Intelligence", "Multi-Terrain Select", "JBL Premium Audio"]
   },
@@ -254,7 +253,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 28,
     engineCapacity: 1.5,
-    imageUrl: "https://images.unsplash.com/photo-1644909918796-d83914203e5b?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1617469767053-d3b523a0b982",
     description: "The Honda CR-V is a compact SUV offering a versatile interior, smooth ride, and excellent fuel economy.",
     features: ["Honda Sensing Suite", "Real Time AWD", "Hands-Free Access Power Tailgate", "Wireless Phone Charger"]
   },
@@ -269,7 +268,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 7,
     mileage: 24,
     engineCapacity: 2.3,
-    imageUrl: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5",
     description: "The Ford Explorer is a three-row SUV with spacious seating, good towing capability, and a range of engine options.",
     features: ["Ford Co-Pilot360", "PowerFold Third-Row Seat", "Twin-Panel Moonroof", "Terrain Management System"]
   },
@@ -284,7 +283,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 5,
     mileage: 25,
     engineCapacity: 2.0,
-    imageUrl: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8",
     description: "The Mercedes-Benz E-Class is a luxury midsize car offering sophisticated technology, refined handling, and a stunning interior.",
     features: ["MBUX Infotainment", "Driver Assistance Package", "Air Body Control Suspension", "Burmester Surround Sound"]
   },
@@ -299,7 +298,7 @@ const CARS_DATA: Car[] = [
     seatingCapacity: 4,
     mileage: 20,
     engineCapacity: 3.0,
-    imageUrl: "https://images.unsplash.com/photo-1580274455191-1c62238fa333?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70",
     description: "The Porsche 911 is an iconic sports car known for its exceptional performance, distinctive design, and everyday usability.",
     features: ["Sport Chrono Package", "Adaptive Sport Seats", "PASM Sport Suspension", "Bose Surround Sound System"]
   }
@@ -326,7 +325,7 @@ export const SEATING_CAPACITY_RANGE = {
 // Function to fetch cars with filtering and pagination
 export const fetchCars = (params: CarFilterParams = {}): Promise<{ cars: Car[], total: number }> => {
   return new Promise((resolve) => {
-    // Simulate API delay
+    // Simulate API delay - reduced from 800ms to 300ms for better responsiveness
     setTimeout(() => {
       let filteredCars = [...CARS_DATA];
 
@@ -379,7 +378,7 @@ export const fetchCars = (params: CarFilterParams = {}): Promise<{ cars: Car[], 
         cars: paginatedCars,
         total: filteredCars.length
       });
-    }, 800);
+    }, 300);
   });
 };
 

@@ -1,32 +1,24 @@
-
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { WishlistProvider } from "./contexts/WishlistContext";
+import Layout from "./components/Layout";
 import Index from "./pages/Index";
 import Wishlist from "./pages/Wishlist";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <WishlistProvider>
-        <BrowserRouter>
-          <Routes>
+function App() {
+  return (
+    <WishlistProvider>
+      <Router>
+        <Routes>
+          <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
             <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </WishlistProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </WishlistProvider>
+  );
+}
 
 export default App;

@@ -1,73 +1,58 @@
-# Welcome to your Lovable project
+# 🚗 Car Finder Web App
 
-## Project info
 
-**URL**: https://lovable.dev/projects/e1188f01-9846-4247-9a06-3a8f99f1baaa
+A modern and responsive web app to search, filter, and wishlist cars. Built with React, Vite, Tailwind CSS, and shadcn/ui. Users can browse car specs, mark favorites, and compare across models with a beautiful UI.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🌐 Live Demo
 
-**Use Lovable**
+🔗 [View Live →](https://<YOUR_PROJECT_URL>)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e1188f01-9846-4247-9a06-3a8f99f1baaa) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 📸 Preview
 
-**Use your preferred IDE**
+![App Screenshot](./public/preview.png)  
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## ✨ Features
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- 🔍 Search cars by name, make, model, fuel, or price
+- ❤️ Wishlist system with counter badge
+- 💡 Filters for fuel, type, price range, etc.
+- 🖥️ Responsive design for mobile & desktop
+- 🎯 Optimized user experience with smooth interactions
+- 📦 Easy to deploy on Vercel, Netlify, etc.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🛠️ Tech Stack
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+| Tech            | Purpose                         |
+|-----------------|----------------------------------|
+| **React**       | Frontend Framework              |
+| **TypeScript**  | Type Safety                     |
+| **Vite**        | Lightning-fast bundler          |
+| **Tailwind CSS**| Utility-first styling           |
+| **shadcn/ui**   | Beautiful, accessible UI        |
+| **Node.js**     | Optional backend integration    |
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Divyanshu-2907/Car-Finder-Web-App.git
+
+# 2. Go into the project directory
+cd your-repo
+
+# 3. Install dependencies
+npm install
+
+# 4. Run the dev server
 npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/e1188f01-9846-4247-9a06-3a8f99f1baaa) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

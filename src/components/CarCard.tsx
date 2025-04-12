@@ -1,11 +1,10 @@
-
 import { Car } from '@/types/car';
 import { useWishlist } from '@/contexts/WishlistContext';
 import { formatCurrency } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Heart, Info } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface CarCardProps {
   car: Car;
@@ -15,6 +14,27 @@ interface CarCardProps {
 const CarCard = ({ car, onViewDetails }: CarCardProps) => {
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // Preload image with priority
+  useEffect(() => {
+    const img = new Image();
+    img.src = car.imageUrl;
+    img.onload = () => {
+      if (imgRef.current) {
+        imgRef.current.src = car.imageUrl;
+        setIsImageLoading(false);
+      }
+    };
+    img.onerror = () => {
+      setIsImageLoading(false);
+    };
+
+    return () => {
+      img.onload = null;
+      img.onerror = null;
+    };
+  }, [car.imageUrl]);
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -38,16 +58,16 @@ const CarCard = ({ car, onViewDetails }: CarCardProps) => {
           </div>
         )}
         <img
-          src={car.imageUrl}
+          ref={imgRef}
           alt={`${car.brand} ${car.model}`}
           className={`w-full h-full object-cover transition-opacity duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
-          onLoad={() => setIsImageLoading(false)}
-          onError={() => setIsImageLoading(false)}
+          loading="eager"
+          decoding="async"
         />
         <Button
           variant="outline"
           size="icon"
-          className={`absolute top-2 right-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white ${
+          className={`absolute top-2 right-2 rounded-full bg-white/90 backdrop-blur-sm ${
             isInWishlist(car.id) ? 'text-car-red' : 'text-gray-500'
           }`}
           onClick={handleWishlistToggle}
