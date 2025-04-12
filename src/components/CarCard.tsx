@@ -3,13 +3,8 @@ import { useWishlist } from '@/contexts/WishlistContext';
 import { formatCurrency } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-<<<<<<< HEAD
-import { Heart, Info } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
-=======
 import { Heart, Info, Car as CarIcon } from 'lucide-react';
-import { useState } from 'react';
->>>>>>> 30cbc90a36c5bae970d7666e52168830c8271ba1
+import { useState, useEffect, useRef } from 'react';
 
 interface CarCardProps {
   car: Car;
@@ -19,7 +14,7 @@ interface CarCardProps {
 const CarCard = ({ car, onViewDetails }: CarCardProps) => {
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const [isImageLoading, setIsImageLoading] = useState(true);
-<<<<<<< HEAD
+  const [imageError, setImageError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   // Preload image with priority
@@ -33,6 +28,7 @@ const CarCard = ({ car, onViewDetails }: CarCardProps) => {
       }
     };
     img.onerror = () => {
+      setImageError(true);
       setIsImageLoading(false);
     };
 
@@ -41,9 +37,6 @@ const CarCard = ({ car, onViewDetails }: CarCardProps) => {
       img.onerror = null;
     };
   }, [car.imageUrl]);
-=======
-  const [imageError, setImageError] = useState(false);
->>>>>>> 30cbc90a36c5bae970d7666e52168830c8271ba1
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -69,33 +62,27 @@ const CarCard = ({ car, onViewDetails }: CarCardProps) => {
       <div className="relative overflow-hidden bg-gray-200 aspect-[16/10]">
         {isImageLoading && !imageError && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-10 h-10 border-4 border-gray-300 border-t-car-blue rounded-full animate-spin"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-car-blue"></div>
           </div>
         )}
-<<<<<<< HEAD
-        <img
-          ref={imgRef}
-          alt={`${car.brand} ${car.model}`}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
-          loading="eager"
-          decoding="async"
-        />
-=======
         {imageError ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100">
             <CarIcon className="h-16 w-16 text-gray-400" />
-            <p className="text-sm text-gray-500 mt-2">{car.brand} {car.model}</p>
+            <p className="mt-2 text-sm text-gray-500">Image not available</p>
           </div>
         ) : (
           <img
+            ref={imgRef}
             src={car.imageUrl}
             alt={`${car.brand} ${car.model}`}
-            className={`w-full h-full object-cover transition-opacity duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
-            onLoad={() => setIsImageLoading(false)}
-            onError={handleImageError}
+            className={`w-full h-full object-cover transition-opacity duration-300 ${
+              isImageLoading ? 'opacity-0' : 'opacity-100'
+            }`}
+            loading="lazy"
+            decoding="async"
           />
         )}
->>>>>>> 30cbc90a36c5bae970d7666e52168830c8271ba1
+
         <Button
           variant="outline"
           size="icon"
@@ -108,34 +95,38 @@ const CarCard = ({ car, onViewDetails }: CarCardProps) => {
             className={`h-5 w-5 ${isInWishlist(car.id) ? 'fill-car-red' : ''}`}
           />
         </Button>
+
+        <Button
+          variant="outline"
+          size="icon"
+          className="absolute top-2 left-2 rounded-full bg-white/90 backdrop-blur-sm text-car-blue"
+          onClick={handleViewDetails}
+        >
+          <Info className="h-5 w-5" />
+        </Button>
       </div>
+
       <CardContent className="p-4">
-        <h3 className="text-xl font-bold">{car.brand} {car.model}</h3>
-        <p className="text-lg font-semibold text-car-blue">{formatCurrency(car.price)}</p>
-        <div className="grid grid-cols-2 gap-2 mt-3 text-sm">
-          <div className="flex items-center">
-            <span className="font-medium">Year:</span>
-            <span className="ml-2">{car.year}</span>
+        <div className="flex items-start justify-between">
+          <div>
+            <h3 className="font-semibold text-lg">{car.brand} {car.model}</h3>
+            <p className="text-sm text-muted-foreground">{car.year}</p>
           </div>
-          <div className="flex items-center">
-            <span className="font-medium">Fuel:</span>
-            <span className="ml-2">{car.fuelType}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="font-medium">Seats:</span>
-            <span className="ml-2">{car.seatingCapacity}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="font-medium">Trans:</span>
-            <span className="ml-2">{car.transmission}</span>
+          <div className="text-right">
+            <p className="font-semibold text-car-blue">{formatCurrency(car.price)}</p>
+            <p className="text-xs text-muted-foreground">per day</p>
           </div>
         </div>
       </CardContent>
+
       <CardFooter className="p-4 pt-0">
-        <Button className="w-full" onClick={handleViewDetails}>
-          <Info className="mr-2 h-4 w-4" />
-          View Details
-        </Button>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <span>{car.seatingCapacity} seats</span>
+          <span>•</span>
+          <span>{car.fuelType}</span>
+          <span>•</span>
+          <span>{car.transmission}</span>
+        </div>
       </CardFooter>
     </Card>
   );
